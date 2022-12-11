@@ -1,4 +1,4 @@
 const {app} = require('./server/server')
-
-app.listen(3131)
-console.log('Server Open AI Test is running');
+const PORT = process.env.PORT || 3131
+app.listen(PORT)
+console.log(`Server Open AI Test is running in port ${PORT}`);
