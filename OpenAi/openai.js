@@ -24,13 +24,31 @@ const createCompletion = async (prompt) => {
     });
     return response.data;
   } catch (error) {
-    console.log("🚀 ~ file: openai.js:27 ~ createCompletion ~ error", error)
+    console.log("🚀 ~ file: openai.js:27 ~ createCompletion ~ error", error);
     response.error = true;
   }
-  return response
+  return response;
+};
+
+const createImage = async (prompt) => {
+  let response = {};
+
+  try {
+    response = await openai.createImage({
+      prompt,
+      n: 1,
+      size: "512x512"
+    });
+    return response.data;
+  } catch (error) {
+    console.log("🚀 ~ file: openai.js:43 ~ createImage ~ error", error);
+    response.error = true;
+  }
+  return response;
 };
 
 module.exports = {
   listModels,
-  createCompletion
+  createCompletion,
+  createImage
 };

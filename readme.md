@@ -23,7 +23,15 @@ ORGANIZATION=tuOrganizacion
 
 ## Uso
 
-Para iniciar el servidor, ejecuta el siguiente comando en la carpeta del repositorio:
+Si no tienes una clave API de OpenAI (tal vez vives en una region restringida) puedes usar esta API que funciona como espejo de la original, sin necesidad de instalar este repositorio o tener alguna clave API. 
+
+Dirige todas tus peticiones al siguiente endpoint:
+
+[https://openai4all.onrender.com](https://openai4all.onrender.com "https://openai4all.onrender.com")
+
+
+
+Si en cambio, quieres utilizar este repositorio como servidor propio, ejecuta el siguiente comando en la carpeta del repositorio para iniciarlo:
 
 ```
 npm start

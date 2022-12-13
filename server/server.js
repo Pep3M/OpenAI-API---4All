@@ -5,7 +5,7 @@ const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { listModels, createCompletion } = require("../OpenAi/openai");
+const { listModels, createCompletion, createImage } = require("../OpenAi/openai");
 const { sendMessageToChatGPT } = require("../OpenAi/auxiliar");
 //const { example } = require("../OpenAi/chatgpt");
 
@@ -53,6 +53,7 @@ app.get("/v1/models", async (req, res) => {
   res.status(200).send(response);
 });
 
+// TextCompletion
 app.post("/v1/completions", async (req, res) => {
   const { message } = req.body;
   const response = await createCompletion(message);
@@ -60,6 +61,16 @@ app.post("/v1/completions", async (req, res) => {
   res.status(200).send(response);
 });
 
+// Images
+app.post("/v1/createImage", async (req, res) => {
+  const { message } = req.body;
+  console.log("🚀 ~ file: server.js:65 ~ app.post ~ message", message)
+  const response = await createImage(message);
+  console.log(response);
+  res.status(200).send(response);
+});
+
+//experimental - adding chatGPT API
 app.post("/v1/chat", async (req, res) => {
   const { message } = req.body;
   //const response = await sendMessageToChatGPT(message)
