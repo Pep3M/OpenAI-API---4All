@@ -2,20 +2,25 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY
-});
-const openai = new OpenAIApi(configuration);
+
+const getOpenAiInstance = (apiKey) => {
+  const configuration = new Configuration({
+    apiKey
+  });
+  return new OpenAIApi(configuration);
+}
 
 const listModels = async () => {
+  const openai = getOpenAiInstance(apiKey);
   const result = await openai.listModels();
   return result.data;
 };
 
-const createCompletion = async (prompt) => {
+const createCompletion = async (prompt, apiKey) => {
   let response = {};
 
   try {
+    const openai = getOpenAiInstance(apiKey);
     response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt,
@@ -24,16 +29,16 @@ const createCompletion = async (prompt) => {
     });
     return response.data;
   } catch (error) {
-    console.log("🚀 ~ file: openai.js:27 ~ createCompletion ~ error", error);
     response.error = true;
   }
   return response;
 };
 
-const createImage = async (prompt) => {
+const createImage = async (prompt, apiKey) => {
   let response = {};
 
   try {
+    const openai = getOpenAiInstance(apiKey);
     response = await openai.createImage({
       prompt,
       n: 2,
@@ -41,7 +46,6 @@ const createImage = async (prompt) => {
     });
     return response.data;
   } catch (error) {
-    console.log("🚀 ~ file: openai.js:43 ~ createImage ~ error", error);
     response.error = true;
   }
   return response;
